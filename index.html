@@ -17,20 +17,40 @@
 
 <body>
 
-<div x-data="{show: true}">
+<div x-data="game()" class="px-10 flex items-center justify-center min-h-screen">
 
-  <div class="card">1</div>
-  <div class="card">1</div>
-  <div class="card">1</div>
-  <div class="card">1</div>
-  <div class="card">1</div>
-  <div class="card">1</div>
-  <div class="card">1</div>
+  <h1 class="fixed top-0 right-0 p-10 font-bold text-3xl">
+    <span x-text="points"></span>
+    <span class="text-xs">pts</span>
+  </h1>
+
+  <div class="grid flex-1 grid-cols-6 gap-10">
+
+    <template x-for="card in cards">
+      <div class="h-32 bg-gray-300 w-32 cursor-pointer flex"
+           :style="'background:' + (card.flipped ? card.color : '#ddd')"
+           @click="flipCard(card)">
+
+        <div x-show="card.cleared"
+             class="w-full text-4xl font-bold"
+             style="text-align: center;align-self: center">X</div>
+      </div>
+    </template>
+  </div>
+</div>
+
+<div x-data="{message: 'sdadasdas', show:false}"
+     x-show="show"
+     @flash.window="message = $event.detail.message; show = true; setTimeout(() => show=false,850)"
+     class="fixed bottom-0 right-0 text-white bg-blue-500 p-2 mb-4 mr-4 rounded">
+
+  <span x-text="message" class="pr-4"></span>
+  <button @click="show = false">&times;</button>
 
 </div>
 
 <script src="js/vendor/modernizr-3.11.2.min.js"></script>
-
+<script src="js/main.js"></script>
 </body>
 
 </html>
