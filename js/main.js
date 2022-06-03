@@ -1,25 +1,25 @@
 function game() {
     return {
-     cards: [
-         { color: 'gold', flipped: false, cleared: false },
-         { color: 'lime', flipped: false, cleared: false },
-         { color: 'coral', flipped: false, cleared: false },
-         { color: 'cornflowerblue', flipped: false, cleared: false },
-         { color: 'Sienna', flipped: false, cleared: false },
-         { color: 'darkmagenta', flipped: false, cleared: false },
-         { color: 'gold', flipped: false, cleared: false },
-         { color: 'lime', flipped: false, cleared: false },
-         { color: 'coral', flipped: false, cleared: false },
-         { color: 'cornflowerblue', flipped: false, cleared: false },
-         { color: 'Sienna', flipped: false, cleared: false },
-         { color: 'darkmagenta', flipped: false, cleared: false },
-         ].sort(() => Math.random() - .5),
+        cards: [
+            {color: 'gold', flipped: false, cleared: false},
+            {color: 'lime', flipped: false, cleared: false},
+            {color: 'coral', flipped: false, cleared: false},
+            {color: 'cornflowerblue', flipped: false, cleared: false},
+            {color: 'Sienna', flipped: false, cleared: false},
+            {color: 'darkmagenta', flipped: false, cleared: false},
+            {color: 'gold', flipped: false, cleared: false},
+            {color: 'lime', flipped: false, cleared: false},
+            {color: 'coral', flipped: false, cleared: false},
+            {color: 'cornflowerblue', flipped: false, cleared: false},
+            {color: 'Sienna', flipped: false, cleared: false},
+            {color: 'darkmagenta', flipped: false, cleared: false},
+        ].sort(() => Math.random() - .5),
 
         get flippedCards() {
             return this.cards.filter(card => card.flipped);
         },
 
-        get clearedCards () {
+        get clearedCards() {
             return this.cards.filter(card => card.cleared);
         },
 
@@ -28,26 +28,33 @@ function game() {
         },
 
         get points() {
-         return this.clearedCards.length;
+            return this.clearedCards.length;
+        },
+
+        reset: function () {
+            this.cards.forEach(card => {
+                card.flipped = false;
+                card.cleared = false;
+            })
         },
 
         flipCard: async function (card) {
 
-             if(this.flippedCards.length === 2) {
-                 return;
-             }
+            if (this.flippedCards.length === 2) {
+                return;
+            }
 
-            card.flipped =!card.flipped;
+            card.flipped = !card.flipped;
 
-            if(this.flippedCards.length === 2) {
-                if(this.hasMatch()) {
+            if (this.flippedCards.length === 2) {
+                if (this.hasMatch()) {
                     flash('Match found, you should feel proud!');
 
                     await pause();
 
                     this.flippedCards.forEach(card => card.cleared = true);
 
-                    if(!this.remainingCards.length) {
+                    if (!this.remainingCards.length) {
                         alert('Winner Winner chicken dinner');
                     }
                 }
@@ -58,17 +65,17 @@ function game() {
         },
 
         hasMatch: function () {
-           return this.flippedCards[0].color === this.flippedCards[1].color;
+            return this.flippedCards[0].color === this.flippedCards[1].color;
         }
     };
 }
 
-function pause(milliseconds = 850) {
-    return new Promise(resolve =>  setTimeout(resolve,milliseconds));
+function pause(milliseconds = 500) {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
 
 function flash(message) {
-    window.dispatchEvent(new CustomEvent('flash',{
+    window.dispatchEvent(new CustomEvent('flash', {
         detail: {message}
     }))
 }
