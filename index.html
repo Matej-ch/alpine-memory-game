@@ -45,9 +45,9 @@
     </div>
 </div>
 
-<div x-data="{message: 'sdadasdas', show:false}"
+<div x-data="{message: '-', show:false}"
      x-show="show"
-     @flash.window="message = $event.detail.message; show = true; setTimeout(() => show=false,850)"
+     @flash.window="message = $event.detail.message; show = true; setTimeout(() => show=false,1000)"
      class="fixed bottom-0 right-0 text-white bg-blue-500 p-2 mb-4 mr-4 rounded">
 
     <span x-text="message" class="pr-4"></span>
