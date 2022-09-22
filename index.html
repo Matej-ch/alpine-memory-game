@@ -19,17 +19,22 @@
 
 <div x-data="game()" class="px-10 py-4 flex items-center justify-center min-h-screen">
 
-    <h1 class="fixed top-0 right-0 p-10 font-bold text-3xl">
-        <span x-text="points"></span>
-        <span class="text-xs">pts</span>
+    <h1 class="fixed w-full flex top-0 right-0 px-4 font-bold text-3xl justify-between items-center">
+        <div class="text-2xl">
+            <span x-text="points"></span>
+            <span class="">pts</span>
+        </div>
 
-        <button @click="reset()"
-                class="border border-red-500 bg-red-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline">
-            Reset
-        </button>
+        <div>
+            <button @click="reset()"
+                    class="border border-red-500 bg-red-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline">
+                Reset
+            </button>
+        </div>
+
     </h1>
 
-    <div class="grid gap-2 grid-cols-6">
+    <div class="grid gap-2 grid-cols-2 md:grid-cols-6">
 
         <template x-for="card in cards">
             <div class="h-32 bg-gray-300 w-32 cursor-pointer flex"
@@ -38,7 +43,7 @@
 
                 <div x-show="card.cleared"
                      class="w-full text-4xl font-bold"
-                     style="text-align: center;align-self: center">X
+                     style="text-align: center;align-self: center">✔
                 </div>
             </div>
         </template>
